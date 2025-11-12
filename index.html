@@ -413,10 +413,11 @@
             let selected = null;
 
             const links = {
-                phonepe: "phonepe://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv",
-                gpay: "gpay://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv",
-                paytm: "paytmmp://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv"
-            };
+  phonepe: "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&cu=INR",
+  gpay:    "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&cu=INR",
+  paytm:   "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&cu=INR"
+};
+
 
             function setSelected(el) {
                 options.forEach(o => {

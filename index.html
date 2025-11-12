@@ -308,6 +308,7 @@
                 width: 92vw
             }
         }
+
         .image-icon {
             display: inline-flex;
             align-items: center;
@@ -327,7 +328,7 @@
         <div class="blob b1"></div>
         <div class="blob b2"></div>
     </div>
-    
+
 
     <div class="viewport">
         <div class="glass-shell" role="application" aria-label="Payment to Dhruv">
@@ -335,7 +336,7 @@
                 <div class="avatar" aria-hidden="true">
                     <!-- <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 120 120'><rect fill='%23f0f7ff' width='120' height='120' rx='22'/><g transform='translate(16,18)'><circle cx='40' cy='28' r='24' fill='%23dbeafe'/><rect x='0' y='64' width='88' height='18' rx='9' fill='%23dbeafe'/></g></svg>"
                         alt="Dhruv profile" /> -->
-                        <div class="image-icon"></div>
+                    <div class="image-icon"></div>
                 </div>
                 <div class="title-wrap">
                     <div class="title">Pay to Ambica Enterprise</div>
@@ -349,7 +350,10 @@
 
                     <div class="option" role="button" tabindex="0" data-value="phonepe" data-selected="false">
                         <div class="icon-wrap" aria-hidden="true">
-                            <img style="" class="app-preview__image-origin" src="https://img.icons8.com/color/1200/phone-pe.jpg" srcset="https://img.icons8.com/?size=256&amp;id=OYtBxIlJwMGA&amp;format=png 1x, https://img.icons8.com/?size=512&amp;id=OYtBxIlJwMGA&amp;format=png 2x" width="40" height="40" alt="Phone Pe icon" data-v-40169e2e="">
+                            <img style="" class="app-preview__image-origin"
+                                src="https://img.icons8.com/color/1200/phone-pe.jpg"
+                                srcset="https://img.icons8.com/?size=256&amp;id=OYtBxIlJwMGA&amp;format=png 1x, https://img.icons8.com/?size=512&amp;id=OYtBxIlJwMGA&amp;format=png 2x"
+                                width="40" height="40" alt="Phone Pe icon" data-v-40169e2e="">
                         </div>
                         <div class="meta">
                             <div class="name">PhonePe</div>
@@ -366,7 +370,10 @@
 
                     <div class="option" role="button" tabindex="0" data-value="gpay" data-selected="false">
                         <div class="icon-wrap" aria-hidden="true">
-                            <img data-v-40169e2e="" class="app-preview__image-origin" src="https://img.icons8.com/color/1200/google-pay.jpg" srcset="https://img.icons8.com/?size=256&amp;id=am4ltuIYDpQ5&amp;format=png 1x, https://img.icons8.com/?size=512&amp;id=am4ltuIYDpQ5&amp;format=png 2x" width="36" height="36" alt="Google Pay icon" style="">
+                            <img data-v-40169e2e="" class="app-preview__image-origin"
+                                src="https://img.icons8.com/color/1200/google-pay.jpg"
+                                srcset="https://img.icons8.com/?size=256&amp;id=am4ltuIYDpQ5&amp;format=png 1x, https://img.icons8.com/?size=512&amp;id=am4ltuIYDpQ5&amp;format=png 2x"
+                                width="36" height="36" alt="Google Pay icon" style="">
                         </div>
                         <div class="meta">
                             <div class="name">GPay</div>
@@ -383,7 +390,10 @@
 
                     <div class="option" role="button" tabindex="0" data-value="paytm" data-selected="false">
                         <div class="icon-wrap" aria-hidden="true">
-                            <img data-v-40169e2e="" class="app-preview__image-origin" src="https://img.icons8.com/color/1200/paytm.jpg" srcset="https://img.icons8.com/?size=256&amp;id=68067&amp;format=png 1x, https://img.icons8.com/?size=512&amp;id=68067&amp;format=png 2x" width="36" height="36" alt="paytm icon" style="">
+                            <img data-v-40169e2e="" class="app-preview__image-origin"
+                                src="https://img.icons8.com/color/1200/paytm.jpg"
+                                srcset="https://img.icons8.com/?size=256&amp;id=68067&amp;format=png 1x, https://img.icons8.com/?size=512&amp;id=68067&amp;format=png 2x"
+                                width="36" height="36" alt="paytm icon" style="">
                         </div>
                         <div class="meta">
                             <div class="name">Paytm</div>
@@ -405,7 +415,7 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         // selection + deep-link redirect
         (function () {
             const options = Array.from(document.querySelectorAll('.option'));
@@ -413,11 +423,10 @@
             let selected = null;
 
             const links = {
-  phonepe: "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&cu=INR",
-  gpay:    "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&cu=INR",
-  paytm:   "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&cu=INR"
-};
-
+                phonepe: "phonepe://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv",
+                gpay: "gpay://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv",
+                paytm: "paytmmp://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv"
+            };
 
             function setSelected(el) {
                 options.forEach(o => {
@@ -463,6 +472,125 @@
 
         })();
     </script>
+    -->
+    <script>
+        (function () {
+            const options = Array.from(document.querySelectorAll('.option'));
+            const payBtn = document.getElementById('payBtn');
+            let selected = null;
+
+            const upiUniversal = "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR";
+            const appLinks = {
+                phonepe: "phonepe://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR",
+                gpay: "tez://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR",
+                paytm: "paytmmp://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR"
+            };
+
+            // Simple glassy toast for alerts
+            function showToast(message, type = "info") {
+                const t = document.createElement("div");
+                t.textContent = message;
+                t.style.position = "fixed";
+                t.style.bottom = "32px";
+                t.style.left = "50%";
+                t.style.transform = "translateX(-50%)";
+                t.style.padding = "12px 20px";
+                t.style.borderRadius = "14px";
+                t.style.fontWeight = "600";
+                t.style.backdropFilter = "blur(10px) saturate(140%)";
+                t.style.background = type === "error"
+                    ? "rgba(255,80,80,0.25)"
+                    : type === "success"
+                        ? "rgba(0,150,80,0.25)"
+                        : "rgba(255,255,255,0.25)";
+                t.style.color = "#051426";
+                t.style.boxShadow = "0 8px 30px rgba(0,0,0,0.08)";
+                t.style.zIndex = 9999;
+                document.body.appendChild(t);
+                setTimeout(() => { t.style.opacity = "0"; t.style.transition = "opacity .4s"; setTimeout(() => t.remove(), 400) }, 2000);
+            }
+
+            // Option selection
+            function setSelected(el) {
+                options.forEach(o => {
+                    const svg = o.querySelector('.check svg');
+                    o.setAttribute('data-selected', o === el ? 'true' : 'false');
+                    if (svg) svg.style.opacity = o === el ? '1' : '0';
+                });
+                selected = el.getAttribute('data-value');
+                payBtn.disabled = false;
+                payBtn.removeAttribute('aria-disabled');
+                payBtn.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-2px)' }],
+                    { duration: 160, fill: 'forwards', easing: 'cubic-bezier(.2,.9,.3,1)' });
+            }
+
+            options.forEach(op => {
+                op.addEventListener('click', () => setSelected(op));
+                op.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(op); }
+                    const idx = options.indexOf(op);
+                    if (e.key === 'ArrowDown') { e.preventDefault(); options[(idx + 1) % options.length].focus(); }
+                    if (e.key === 'ArrowUp') { e.preventDefault(); options[(idx - 1 + options.length) % options.length].focus(); }
+                });
+            });
+
+            // Handle Pay
+            payBtn.addEventListener('click', () => {
+                if (!selected) { showToast("Please select a payment method.", "error"); return; }
+
+                // Network check
+                if (!navigator.onLine) {
+                    showToast("Network not available. Please check your connection.", "error");
+                    return;
+                }
+
+                // Overlay while redirecting
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.inset = 0;
+                overlay.style.zIndex = 9998;
+                overlay.style.display = 'flex';
+                overlay.style.alignItems = 'center';
+                overlay.style.justifyContent = 'center';
+                overlay.style.background = 'rgba(6,10,25,0.28)';
+                overlay.style.backdropFilter = 'blur(6px)';
+                const pill = document.createElement('div');
+                pill.style.padding = '14px 18px';
+                pill.style.borderRadius = '12px';
+                pill.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75))';
+                pill.style.boxShadow = '0 8px 24px rgba(4,26,64,0.16)';
+                pill.innerText = 'Redirecting to app...';
+                overlay.appendChild(pill);
+                document.body.appendChild(overlay);
+
+                // Detect platform
+                const isAndroid = /android/i.test(navigator.userAgent);
+                const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+                let targetUrl = upiUniversal; // default universal link
+
+                if (isIOS) {
+                    // iOS can safely use app-specific deep links
+                    targetUrl = appLinks[selected] || upiUniversal;
+                }
+
+                // Try to open
+                window.location.href = targetUrl;
+
+                // Fallback if app not installed or blocked
+                let fallbackApps = ["phonepe", "gpay", "paytm"].filter(a => a !== selected);
+                setTimeout(() => {
+                    try { document.body.removeChild(overlay); } catch (e) { }
+                    showToast("If app didn’t open, try " + fallbackApps[0] + " or " + fallbackApps[1] + ".", "info");
+                }, 1500);
+
+                // Success indicator (assume launch worked)
+                setTimeout(() => showToast("Payment flow initiated successfully.", "success"), 400);
+            });
+
+        })();
+    </script>
+
 </body>
 
 </html>

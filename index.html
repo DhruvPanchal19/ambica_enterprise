@@ -500,15 +500,12 @@
             return;
         }
 
-        const links = isIOS ? {
-            phonepe: `phonepe://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`,
-            gpay: `gpay://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`,
-            paytm: `paytmmp://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`
-        } : {
-            phonepe: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`,
-            gpay: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`,
-            paytm: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`
-        };
+        const links = {
+  phonepe: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR&tn=Payment%20to%20Dhruv`,
+  gpay: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR&tn=Payment%20to%20Dhruv`,
+  paytm: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR&tn=Payment%20to%20Dhruv`
+};
+
 
         const url = links[selected];
         if (!url) {

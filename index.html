@@ -409,133 +409,146 @@
                     </div>
 
                 </div>
+<div class="amount-input">
+  <input id="amountInput" type="number" placeholder="Enter amount (₹)" 
+         style="width:100%;padding:12px 16px;border-radius:16px;
+                border:none;background:rgba(255,255,255,0.25);
+                backdrop-filter:blur(10px);font-size:16px;
+                color:#111;text-align:center;">
+</div>
 
                 <button id="payBtn" class="pay-btn" disabled aria-disabled="true">Pay</button>
             </main>
         </div>
     </div>
 
-    <script>
-        (function () {
-            const options = Array.from(document.querySelectorAll('.option'));
-            const payBtn = document.getElementById('payBtn');
-            let selected = null;
+<script>
+(function () {
+    const options = Array.from(document.querySelectorAll('.option'));
+    const payBtn = document.getElementById('payBtn');
+    const amountInput = document.getElementById('amountInput'); // <input id="amountInput" ...> should exist in your HTML
+    let selected = null;
 
-            // platform detection
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-            const links = isIOS ? {
-                phonepe: "phonepe://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR",
-                gpay: "gpay://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR",
-                paytm: "paytmmp://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR"
-            } : {
-                phonepe: "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR",
-                gpay: "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR",
-                paytm: "upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=499&cu=INR"
-            };
+    // Detect platform
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-            function showAlert(msg, type = "info") {
-                const toast = document.createElement("div");
-                toast.innerText = msg;
-                toast.style.position = "fixed";
-                toast.style.bottom = "28px";
-                toast.style.left = "50%";
-                toast.style.transform = "translateX(-50%)";
-                toast.style.padding = "14px 22px";
-                toast.style.borderRadius = "16px";
-                toast.style.backdropFilter = "blur(10px)";
-                toast.style.background = type === "error"
-                    ? "rgba(255, 79, 79, 0.75)"
-                    : type === "success"
-                        ? "rgba(60, 215, 96, 0.75)"
-                        : "rgba(255,255,255,0.35)";
-                toast.style.color = "#fff";
-                toast.style.fontWeight = "500";
-                toast.style.zIndex = "99999";
-                toast.style.transition = "opacity 0.4s ease";
-                toast.style.opacity = "1";
-                document.body.appendChild(toast);
-                setTimeout(() => (toast.style.opacity = "0"), 1800);
-                setTimeout(() => toast.remove(), 2200);
-            }
+    function showAlert(msg, type = "info") {
+        const toast = document.createElement("div");
+        toast.innerText = msg;
+        toast.style.position = "fixed";
+        toast.style.bottom = "28px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.padding = "14px 22px";
+        toast.style.borderRadius = "16px";
+        toast.style.backdropFilter = "blur(10px)";
+        toast.style.background = type === "error"
+            ? "rgba(255, 79, 79, 0.75)"
+            : type === "success"
+                ? "rgba(60, 215, 96, 0.75)"
+                : "rgba(255,255,255,0.35)";
+        toast.style.color = "#fff";
+        toast.style.fontWeight = "500";
+        toast.style.zIndex = "99999";
+        toast.style.transition = "opacity 0.4s ease";
+        toast.style.opacity = "1";
+        document.body.appendChild(toast);
+        setTimeout(() => (toast.style.opacity = "0"), 1800);
+        setTimeout(() => toast.remove(), 2200);
+    }
 
-            function setSelected(el) {
-                options.forEach(o => {
-                    const svg = o.querySelector('.check svg');
-                    o.setAttribute('data-selected', o === el ? 'true' : 'false');
-                    if (svg) svg.style.opacity = o === el ? '1' : '0';
-                });
-                selected = el.getAttribute('data-value');
-                payBtn.disabled = false;
-                payBtn.removeAttribute('aria-disabled');
-                payBtn.animate(
-                    [{ transform: 'translateY(0)' }, { transform: 'translateY(-2px)' }],
-                    { duration: 160, fill: 'forwards', easing: 'cubic-bezier(.2,.9,.3,1)' }
-                );
-            }
+    function setSelected(el) {
+        options.forEach(o => {
+            const svg = o.querySelector('.check svg');
+            o.setAttribute('data-selected', o === el ? 'true' : 'false');
+            if (svg) svg.style.opacity = o === el ? '1' : '0';
+        });
+        selected = el.getAttribute('data-value');
+        payBtn.disabled = false;
+        payBtn.removeAttribute('aria-disabled');
+        payBtn.animate(
+            [{ transform: 'translateY(0)' }, { transform: 'translateY(-2px)' }],
+            { duration: 160, fill: 'forwards', easing: 'cubic-bezier(.2,.9,.3,1)' }
+        );
+    }
 
-            options.forEach(op => {
-                op.addEventListener('click', () => setSelected(op));
-                op.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(op); }
-                    const idx = options.indexOf(op);
-                    if (e.key === 'ArrowDown') { e.preventDefault(); options[(idx + 1) % options.length].focus(); }
-                    if (e.key === 'ArrowUp') { e.preventDefault(); options[(idx - 1 + options.length) % options.length].focus(); }
-                });
-            });
+    options.forEach(op => {
+        op.addEventListener('click', () => setSelected(op));
+        op.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(op); }
+            const idx = options.indexOf(op);
+            if (e.key === 'ArrowDown') { e.preventDefault(); options[(idx + 1) % options.length].focus(); }
+            if (e.key === 'ArrowUp') { e.preventDefault(); options[(idx - 1 + options.length) % options.length].focus(); }
+        });
+    });
 
-            payBtn.addEventListener('click', () => {
-                if (!navigator.onLine) {
-                    showAlert("Network not available", "error");
-                    return;
-                }
+    payBtn.addEventListener('click', () => {
+        const amount = parseFloat(amountInput?.value || 0);
 
-                if (!selected) {
-                    showAlert("Please select a payment app", "error");
-                    return;
-                }
+        if (!navigator.onLine) {
+            showAlert("Network not available", "error");
+            return;
+        }
 
-                const url = links[selected];
-                if (!url) {
-                    showAlert("Invalid payment link", "error");
-                    return;
-                }
+        if (!selected) {
+            showAlert("Please select a payment app", "error");
+            return;
+        }
 
-                // smooth overlay before redirect
-                const overlay = document.createElement('div');
-                overlay.style.position = 'fixed';
-                overlay.style.inset = 0;
-                overlay.style.zIndex = 9999;
-                overlay.style.display = 'flex';
-                overlay.style.alignItems = 'center';
-                overlay.style.justifyContent = 'center';
-                overlay.style.background = 'rgba(6,10,25,0.28)';
-                overlay.style.backdropFilter = 'blur(6px)';
-                const pill = document.createElement('div');
-                pill.style.padding = '14px 18px';
-                pill.style.borderRadius = '12px';
-                pill.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75))';
-                pill.style.boxShadow = '0 8px 24px rgba(4,26,64,0.16)';
-                pill.innerText = 'Redirecting to app...';
-                overlay.appendChild(pill);
-                document.body.appendChild(overlay);
+        if (!amount || amount <= 0) {
+            showAlert("Enter a valid amount", "error");
+            return;
+        }
 
-                // simulate success alert before redirect
-                showAlert("Redirecting to " + selected.toUpperCase(), "success");
+        const links = isIOS ? {
+            phonepe: `phonepe://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`,
+            gpay: `gpay://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`,
+            paytm: `paytmmp://upi/pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`
+        } : {
+            phonepe: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`,
+            gpay: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`,
+            paytm: `upi://pay?pa=dhruvpanchal1901@ybl&pn=Dhruv&am=${amount}&cu=INR`
+        };
 
-                // open payment app
-                const timeout = setTimeout(() => {
-                    document.body.removeChild(overlay);
-                    showAlert("App not installed. Try another option.", "error");
-                }, 3000);
+        const url = links[selected];
+        if (!url) {
+            showAlert("Invalid payment link", "error");
+            return;
+        }
 
-                const opened = window.location.href = url;
+        // smooth overlay before redirect
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.inset = 0;
+        overlay.style.zIndex = 9999;
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.background = 'rgba(6,10,25,0.28)';
+        overlay.style.backdropFilter = 'blur(6px)';
+        const pill = document.createElement('div');
+        pill.style.padding = '14px 18px';
+        pill.style.borderRadius = '12px';
+        pill.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75))';
+        pill.style.boxShadow = '0 8px 24px rgba(4,26,64,0.16)';
+        pill.innerText = 'Redirecting to app...';
+        overlay.appendChild(pill);
+        document.body.appendChild(overlay);
 
-                // if redirect works, clear timeout
-                setTimeout(() => clearTimeout(timeout), 1200);
-            });
+        showAlert(`Redirecting ₹${amount} to ${selected.toUpperCase()}`, "success");
 
-        })();
-    </script>
+        const timeout = setTimeout(() => {
+            document.body.removeChild(overlay);
+            showAlert("App not installed. Try another option.", "error");
+        }, 3000);
+
+        window.location.href = url;
+        setTimeout(() => clearTimeout(timeout), 1200);
+    });
+
+})();
+</script>
+
 
 
 
